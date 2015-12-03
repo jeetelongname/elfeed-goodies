@@ -5,8 +5,7 @@ Various bits and pieces to enhance the [Elfeed][elfeed] user experience.
 
  [elfeed]: https://github.com/skeeto/elfeed
 
-![Screenshot #1](data/screenshot-1.png)
-![Screenshot #2](data/screenshot-2.png)
+![Screenshot](data/screenshot.png)
 
 Features
 -------

@@ -67,9 +67,6 @@
 (defun elfeed-goodies/show-mode-setup ()
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))))
 
-(add-hook 'elfeed-show-mode-hook #'elfeed-goodies/show-mode-setup)
-(setq elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain)
-
 (provide 'elfeed-goodies-show-powerline)
 
 ;;; elfeed-goodies-show-powerline.el ends here

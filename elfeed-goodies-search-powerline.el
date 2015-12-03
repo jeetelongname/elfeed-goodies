@@ -22,15 +22,18 @@
 
 (defcustom elfeed-goodies/feed-source-column-width 16
   "Width of the feed source column."
-  :group 'elfeed-goodies)
+  :group 'elfeed-goodies
+  :type 'integer)
 
 (defcustom elfeed-goodies/tag-column-width 24
   "Width of the tags column."
-  :group 'elfeed-goodies)
+  :group 'elfeed-goodies
+  :type 'integer)
 
 (defcustom elfeed-goodies/wide-threshold 0.5
   "Minimum width of the window (percent of the frame) to start using the wide layout from."
-  :group 'elfeed-goodies)
+  :group 'elfeed-goodies
+  :type 'float)
 
 (defun -pad-string-to (str width)
   "Pad `STR' to `WIDTH' characters."

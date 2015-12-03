@@ -20,11 +20,13 @@
 
 (defcustom elfeed-goodies/entry-pane-position 'right
   "Position of the popup entry pane."
-  :group 'elfeed-goodies)
+  :group 'elfeed-goodies
+  :type '(choice (const left) (const right) (const top) (const bottom)))
 
 (defcustom elfeed-goodies/entry-pane-size 0.75
   "Size (width or height, depending on position) of the popup entry pane."
-  :group 'elfeed-goodies)
+  :group 'elfeed-goodies
+  :type 'number)
 
 (defun elfeed-goodies/switch-pane (buff)
   "Display BUFF in a popup window."

@@ -10,9 +10,12 @@
 ;;
 ;;; Commentary:
 ;;
-;; Various bits and pieces to enhance the Elfeed user experience. Includes an
-;; adaptive, powerline-based header for the `*elfeed-search*' buffer with a
-;; matching entry format; and a split-pane setup.
+;; Various bits and pieces to enhance the Elfeed user experience:
+;;
+;;  * Includes an adaptive, powerline-based header for the `*elfeed-search*'
+;;    buffer with a matching entry format.
+;;  * A split-pane setup.
+;;  * A more compact, powerline-based `*elfeed-entry*' buffer.
 ;;
 ;;; License: GPLv3+
 
@@ -21,6 +24,7 @@
 (provide 'elfeed-goodies)
 
 (require 'elfeed-goodies-search-powerline)
+(require 'elfeed-goodies-show-powerline)
 (require 'elfeed-goodies-split-pane)
 
 (defgroup elfeed-goodies nil
@@ -35,9 +39,11 @@
 * Header bar using powerline.
 * Split pane view via popwin."
   (interactive)
+  (add-hook 'elfeed-show-mode-hook #'elfeed-goodies/show-mode-setup)
   (setq elfeed-search-header-function #'elfeed-goodies/search-header-draw
         elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane
-        elfeed-show-entry-delete #'elfeed-goodies/delete-pane))
+        elfeed-show-entry-delete #'elfeed-goodies/delete-pane
+        elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain))
 
 ;;; elfeed-goodies.el ends here

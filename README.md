@@ -11,10 +11,9 @@ Various bits and pieces to enhance the [Elfeed][elfeed] user experience.
 Features
 -------
 
-* An adaptive, powerline-based header for the `*elfeed-search*` buffer:
-  + Adapts to the window width, so narrow windows will feature more interesting
-  information primarily. Most useful with a split-pane setup.
+* An adaptive, powerline-based header for the `*elfeed-search*` buffer, with a matching entry format.
 * Split pane setup.
+* A more compact, powerline-based `*elfeed-entry*` buffer.
 * Easy customisation.
 
 Getting started

@@ -19,6 +19,7 @@
 (require 'elfeed)
 (require 'elfeed-goodies)
 (require 'powerline)
+(require 'cl-lib)
 
 (defcustom elfeed-goodies/feed-source-column-width 16
   "Width of the feed source column."
@@ -67,10 +68,10 @@ and the length of the active queue."
    (funcall separator-right 'mode-line 'powerline-active1)
    (powerline-raw (concat " " search-filter) 'powerline-active1 'r)
    (funcall separator-right 'powerline-active1 'powerline-active2)
-   (destructuring-bind (unread entry-count feed-count) stats
+   (cl-destructuring-bind (unread entry-count feed-count) stats
      (let ((content (format " %d/%d:%d " unread entry-count feed-count)))
        (when url-queue
-         (destructuring-bind (total-feeds queue-length in-progress) (-elfeed/queue-stats)
+         (cl-destructuring-bind (total-feeds queue-length in-progress) (-elfeed/queue-stats)
            (setf content (concat content (format " (* %.0f%%%%)"
                                                  (* (/ (- total-feeds (+ queue-length
                                                                          in-progress))

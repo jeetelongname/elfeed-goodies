@@ -4,12 +4,15 @@
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/algernon/elfeed-goodies
+;; Package-Requires: ((popup "1.0.0") (powerline "2.2") (elfeed "20151201.1742"))
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; Commentary:
 ;;
-;; Various goodies for Elfeed. This is the main entry point of the package.
+;; Various bits and pieces to enhance the Elfeed user experience. Includes an
+;; adaptive, powerline-based header for the `*elfeed-search*' buffer with a
+;; matching entry format; and a split-pane setup.
 ;;
 ;;; License: GPLv3+
 

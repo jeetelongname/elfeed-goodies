@@ -7,7 +7,14 @@
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
+;;; Commentary:
+;;
+;; Extends Elfeed with a powerline-based, adaptive header bar, and a matching
+;; entry format.
+;;
 ;;; License: GPLv3+
+;;
+;;; Code:
 
 (require 'elfeed)
 (require 'elfeed-goodies)
@@ -26,9 +33,13 @@
   :group 'elfeed-goodies)
 
 (defun -pad-string-to (str width)
+  "Pad `STR' to `WIDTH' characters."
   (format (format "%s%%%ds" str width) ""))
 
 (defun -elfeed/feed-stats ()
+  "Collect some Elfeed feed statistics.
+
+Returns a list: the unread count, entry count, and feed count."
   (if (and elfeed-search-filter-active elfeed-search-filter-overflowing)
       (list 0 0 0)
     (cl-loop with feeds = (make-hash-table :test 'equal)
@@ -43,6 +54,10 @@
               (list unread-count entry-count (hash-table-count feeds))))))
 
 (defun -elfeed/queue-stats ()
+  "Collect some stats about the queue.
+
+Returns a list consisting of the feed count, the remaining feeds,
+and the length of the active queue."
   (list (hash-table-count elfeed-db-feeds)
         (length url-queue)
         (cl-count-if #'url-queue-buffer url-queue)))
@@ -148,3 +163,5 @@
       (insert (propertize title 'face title-faces 'kbd-help title)))))
 
 (provide 'elfeed-goodies-search-powerline)
+
+;;; elfeed-goodies-search-powerline.el ends here

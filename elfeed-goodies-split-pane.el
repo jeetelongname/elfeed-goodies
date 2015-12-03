@@ -7,7 +7,13 @@
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
+;;; Commentary:
+;;
+;; Split pane support for Elfeed.
+;;
 ;;; License: GPLv3+
+;;
+;;; Code:
 
 (require 'elfeed-goodies)
 (require 'popwin)
@@ -40,3 +46,5 @@
     (delete-window window)))
 
 (provide 'elfeed-goodies-split-pane)
+
+;;; elfeed-goodies-split-pane.el ends here

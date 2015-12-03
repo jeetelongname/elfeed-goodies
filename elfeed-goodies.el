@@ -7,7 +7,13 @@
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
+;;; Commentary:
+;;
+;; Various goodies for Elfeed. This is the main entry point of the package.
+;;
 ;;; License: GPLv3+
+
+;;; Code:
 
 (provide 'elfeed-goodies)
 
@@ -31,3 +37,4 @@
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane
         elfeed-show-entry-delete #'elfeed-goodies/delete-pane))
 
+;;; elfeed-goodies.el ends here

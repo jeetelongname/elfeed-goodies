@@ -1,4 +1,4 @@
-;;; elfeed-goodies-search-powerline.el --- Elfeed goodies: powerlineized search
+;;; elfeed-goodies-search-mode.el --- Elfeed goodies for the search buffer
 ;;
 ;; Copyright (c) 2015 Gergely Nagy
 ;;
@@ -6,11 +6,6 @@
 ;; URL: https://github.com/algernon/elfeed-goodies
 ;;
 ;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;; Extends Elfeed with a powerline-based, adaptive header bar, and a matching
-;; entry format.
 ;;
 ;;; License: GPLv3+
 ;;
@@ -166,6 +161,6 @@ and the length of the active queue."
           (insert (propertize title 'face title-faces 'kbd-help title)))
       (insert (propertize title 'face title-faces 'kbd-help title)))))
 
-(provide 'elfeed-goodies-search-powerline)
+(provide 'elfeed-goodies-search-mode)
 
-;;; elfeed-goodies-search-powerline.el ends here
+;;; elfeed-goodies-search-mode.el ends here

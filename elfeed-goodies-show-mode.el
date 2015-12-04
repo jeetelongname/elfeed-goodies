@@ -1,4 +1,4 @@
-;;; elfeed-goodies-show-powerline.el --- Elfeed goodies: powerlineized show-entry
+;;; elfeed-goodies-show-mode.el --- Elfeed goodies for elfeed-show-mode
 ;;
 ;; Copyright (c) 2015 Gergely Nagy
 ;;
@@ -6,11 +6,7 @@
 ;; URL: https://github.com/algernon/elfeed-goodies
 ;;
 ;; This file is NOT part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;; Extends Elfeed with a powerlineized, header-bar enabled entry buffer.
-;;
+                                        ;
 ;;; License: GPLv3+
 ;;
 ;;; Code:
@@ -67,6 +63,6 @@
 (defun elfeed-goodies/show-mode-setup ()
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))))
 
-(provide 'elfeed-goodies-show-powerline)
+(provide 'elfeed-goodies-show-mode)
 
-;;; elfeed-goodies-show-powerline.el ends here
+;;; elfeed-goodies-show-mode.el ends here

@@ -23,8 +23,8 @@
 
 (provide 'elfeed-goodies)
 
-(require 'elfeed-goodies-search-powerline)
-(require 'elfeed-goodies-show-powerline)
+(require 'elfeed-goodies-search-mode)
+(require 'elfeed-goodies-show-mode)
 (require 'elfeed-goodies-split-pane)
 
 (defgroup elfeed-goodies nil

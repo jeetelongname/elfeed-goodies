@@ -36,13 +36,13 @@
                                           (cdr powerline-default-separator-dir))))
          (lhs (list
                (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)
-               (funcall separator-left 'powerline-active2 'powerline-active1)
+               (maybe-separator separator-left 'powerline-active2 'powerline-active1)
                (powerline-raw (concat " " (propertize title 'face 'message-header-subject) " ") 'powerline-active1 'l)
-               (funcall separator-left 'powerline-active1 'mode-line)))
+               (maybe-separator separator-left 'powerline-active1 'mode-line)))
          (rhs (list
-               (funcall separator-right 'mode-line 'powerline-active1)
+               (maybe-separator separator-right 'mode-line 'powerline-active1)
                (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-search-feed-face) " ") 'powerline-active1)
-               (funcall separator-right 'powerline-active1 'powerline-active2)
+               (maybe-separator separator-right 'powerline-active1 'powerline-active2)
                (powerline-raw (format-time-string "%Y-%m-%d %H:%M:%S %z " date) 'powerline-active2 'l))))
     (concat
      (powerline-render lhs)

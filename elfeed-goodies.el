@@ -31,6 +31,18 @@
   "Customisation group for `elfeed-goodies'."
   :group 'comm)
 
+(defcustom elfeed-goodies/powerline-separators t
+  "Toggle powerline separator use on or off within Elfeed buffers.
+
+When disabled, powerline will still be in use, but without separators."
+  :group 'elfeed-goodies
+  :type 'boolean)
+
+(defun maybe-separator (separator-func face-left face-right)
+  (if elfeed-goodies/powerline-separators
+      (funcall separator-func face-left face-right)
+    (powerline-raw " " face-left)))
+
 ;;;###autoload
 (defun elfeed-goodies/setup ()
   "Setup Elfeed with extras:

@@ -68,9 +68,9 @@ and the length of the active queue."
 
 (defun search-header/rhs (separator-left separator-right search-filter stats update)
   (list
-   (funcall separator-right 'mode-line 'powerline-active1)
+   (maybe-separator separator-right 'mode-line 'powerline-active1)
    (powerline-raw (concat " " search-filter) 'powerline-active1 'r)
-   (funcall separator-right 'powerline-active1 'powerline-active2)
+   (maybe-separator separator-right 'powerline-active1 'powerline-active2)
    (cl-destructuring-bind (unread entry-count feed-count) stats
      (let ((content (format " %d/%d:%d " unread entry-count feed-count)))
        (when url-queue
@@ -81,16 +81,16 @@ and the length of the active queue."
                                                        total-feeds 1.0) 100))))))
        (propertize content
                    'face 'powerline-active2)))
-   (funcall separator-right 'powerline-active2 'powerline-active1)
+   (maybe-separator separator-right 'powerline-active2 'powerline-active1)
    (powerline-raw (concat " " update) 'powerline-active1 'r)))
 
 (defun search-header/draw-wide (separator-left separator-right search-filter stats db-time)
   (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
          (lhs (list
                (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
-               (funcall separator-left 'powerline-active1 'powerline-active2)
+               (maybe-separator separator-left 'powerline-active1 'powerline-active2)
                (powerline-raw (-pad-string-to "Tags" (- elfeed-goodies/tag-column-width 6)) 'powerline-active2 'l)
-               (funcall separator-left 'powerline-active2 'mode-line)
+               (maybe-separator separator-left 'powerline-active2 'mode-line)
                (powerline-raw "Subject" 'mode-line 'l)))
          (rhs (search-header/rhs separator-left separator-right search-filter stats update)))
 

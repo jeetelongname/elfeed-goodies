@@ -28,10 +28,8 @@
   "Display BUFF in a popup window."
   (popwin:popup-buffer buff
                        :position elfeed-goodies/entry-pane-position
-                       :width (when (member elfeed-goodies/entry-pane-position '(left right))
-                                elfeed-goodies/entry-pane-size)
-                       :height (when (member elfeed-goodies/entry-pane-position '(top bottom))
-                                 elfeed-goodies/entry-pane-size)
+                       :width elfeed-goodies/entry-pane-size
+                       :height elfeed-goodies/entry-pane-size
                        :stick t
                        :dedicated t))
 

@@ -53,6 +53,7 @@
          (feed (elfeed-entry-feed elfeed-show-entry))
          (base (and feed (elfeed-compute-base (elfeed-feed-url feed)))))
     (erase-buffer)
+    (insert "\n")
     (if content
         (if (eq type 'html)
             (elfeed-insert-html content base)

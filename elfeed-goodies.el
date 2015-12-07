@@ -27,6 +27,7 @@
 (require 'elfeed-goodies-search-mode)
 (require 'elfeed-goodies-show-mode)
 (require 'elfeed-goodies-split-pane)
+(require 'elfeed-goodies-new-entry-hooks)
 
 (defgroup elfeed-goodies nil
   "Customisation group for `elfeed-goodies'."
@@ -53,6 +54,7 @@ When disabled, powerline will still be in use, but without separators."
 * Split pane view via popwin."
   (interactive)
   (add-hook 'elfeed-show-mode-hook #'elfeed-goodies/show-mode-setup)
+  (add-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title)
   (setq elfeed-search-header-function #'elfeed-goodies/search-header-draw
         elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane

@@ -28,6 +28,7 @@
 (require 'elfeed-goodies-show-mode)
 (require 'elfeed-goodies-split-pane)
 (require 'elfeed-goodies-new-entry-hooks)
+(require 'elfeed-goodies-logging)
 
 (defgroup elfeed-goodies nil
   "Customisation group for `elfeed-goodies'."
@@ -60,37 +61,5 @@ When disabled, powerline will still be in use, but without separators."
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane
         elfeed-show-entry-delete #'elfeed-goodies/delete-pane
         elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain))
-
-;; Log toggling
-
-(defcustom elfeed-goodies/log-window-position 'bottom
-  "Position of the log window."
-  :group 'elfeed-goodies
-  :type '(choice (const left) (const right) (const top) (const bottom)))
-
-(defcustom elfeed-goodies/log-window-size 0.25
-  "Size of the log window."
-  :group 'elfeed-goodies
-  :type 'number)
-
-;;;###autoload
-(defun elfeed-goodies/toggle-logs ()
-  "Toggle the display of Elfeed logs in a popup window."
-  (interactive)
-
-  (let* ((log-buffer (get-buffer "*elfeed-log*"))
-         (log-window (get-buffer-window log-buffer)))
-    (if log-window
-        (delete-window log-window)
-      (progn
-        (with-current-buffer log-buffer
-          (goto-char (point-max)))
-        (popwin:popup-buffer (get-buffer "*elfeed-log*")
-                             :position elfeed-goodies/log-window-position
-                             :height elfeed-goodies/log-window-size
-                             :width elfeed-goodies/log-window-size
-                             :stick t
-                             :noselect t
-                             :dedicated t)))))
 
 ;;; elfeed-goodies.el ends here

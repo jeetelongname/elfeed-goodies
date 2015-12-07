@@ -1,6 +1,8 @@
 Elfeed goodies
 ==================
 
+[![MELPA](https://melpa.org/packages/elfeed-goodies-badge.svg)](https://melpa.org/#/elfeed-goodies)
+
 Various bits and pieces to enhance the [Elfeed][elfeed] user experience.
 
  [elfeed]: https://github.com/skeeto/elfeed

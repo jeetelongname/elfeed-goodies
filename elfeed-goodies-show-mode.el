@@ -29,7 +29,10 @@ When zero or negative, the fringes are left untouched."
          (tags-str (mapconcat #'symbol-name tags ", "))
          (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
          (feed (elfeed-entry-feed elfeed-show-entry))
-         (feed-title (elfeed-feed-title feed))
+         (entry-author (elfeed-meta elfeed-show-entry :author))
+         (feed-title (if entry-author
+                         (concat entry-author " (" (elfeed-feed-title feed) ")")
+                       (elfeed-feed-title feed)))
 
          (separator-left (intern (format "powerline-%s-%s"
                                          "arrow-fade"

@@ -56,6 +56,8 @@ When disabled, powerline will still be in use, but without separators."
   (interactive)
   (add-hook 'elfeed-show-mode-hook #'elfeed-goodies/show-mode-setup)
   (add-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title)
+  (when (boundp 'elfeed-new-entry-parse-hook)
+    (add-hook 'elfeed-new-entry-parse-hook #'elfeed-goodies/parse-author))
   (setq elfeed-search-header-function #'elfeed-goodies/search-header-draw
         elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane

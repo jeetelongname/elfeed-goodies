@@ -31,6 +31,10 @@
                (replace (decode-entities original)))
           (setf (elfeed-entry-title entry) replace)))))
 
+(defun elfeed-goodies/parse-author (type entry db-entry)
+  (let* ((author-name (xml-query '(author name *) entry)))
+    (setf (elfeed-meta db-entry :author) author-name)))
+
 (provide 'elfeed-goodies-new-entry-hooks)
 
 ;;; elfeed-goodies-new-entry-hooks.el ends here

@@ -107,10 +107,10 @@ and the length of the active queue."
   (if (zerop (elfeed-db-last-update))
       (elfeed-search--intro-header)
     (let* ((separator-left (intern (format "powerline-%s-%s"
-                                           "arrow-fade"
+                                           elfeed-goodies-powerline-default-separator
                                            (car powerline-default-separator-dir))))
            (separator-right (intern (format "powerline-%s-%s"
-                                            "arrow-fade"
+                                            elfeed-goodies-powerline-default-separator
                                             (cdr powerline-default-separator-dir))))
            (db-time (seconds-to-time (elfeed-db-last-update)))
            (stats (-elfeed/feed-stats))

@@ -25,6 +25,7 @@ When zero or negative, the fringes are left untouched."
 
 (defun elfeed-goodies/entry-header-line ()
   (let* ((title (elfeed-entry-title elfeed-show-entry))
+         (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
          (tags (elfeed-entry-tags elfeed-show-entry))
          (tags-str (mapconcat #'symbol-name tags ", "))
          (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
@@ -43,7 +44,7 @@ When zero or negative, the fringes are left untouched."
          (lhs (list
                (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)
                (funcall separator-left 'powerline-active2 'powerline-active1)
-               (powerline-raw (concat " " (propertize title 'face 'message-header-subject) " ") 'powerline-active1 'l)
+               (powerline-raw (concat " " (propertize title 'face title-faces) " ") 'powerline-active1 'l)
                (funcall separator-left 'powerline-active1 'mode-line)))
          (rhs (list
                (funcall separator-right 'mode-line 'powerline-active1)

@@ -59,11 +59,6 @@ utf-8."
                  (const utf-8)
                  (const nil)))
 
-(defun maybe-separator (separator-func face-left face-right)
-  (if elfeed-goodies/powerline-separators
-      (funcall separator-func face-left face-right)
-    (powerline-raw " " face-left)))
-
 ;;;###autoload
 (defun elfeed-goodies/setup ()
   "Setup Elfeed with extras:

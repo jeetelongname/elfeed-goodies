@@ -42,6 +42,24 @@ function, that sets up the various bits and pieces of the enhancements.
 You can customise some aspects of the package with `M-x customize-group
 elfeed-goodies`.
 
+Faces used by the package
+-------------------------------
+
+The package does not define any new faces, but uses a number of them defined by
+[Elfeed][elfeed]. They work reasonably well with most dark themes, but light
+ones they may have problems with. Consider customising the following faces:
+
+* `powerline-active1`, `powerline-active2`: Used for the powerline block
+  backgrounds in the various headers.
+* `elfeed-search-feed-face`: Used in the `*elfeed-entry*` header for the feed
+  title, and in the `*elfeed-search*` buffer for the same purpose. Not to be
+  confused with the entry title!
+* `elfeed-search-title-face`: Used in the `*elfeed-entry*` header for the entry
+  title, and in the `*elfeed-search*` buffer for the same purpose. Not to be
+  confused with the feed title!
+* `elfeed-search-tag-face`: Used in the `*elfeed-entry*` header for the tags
+  list, and in the `*elfeed-search*` buffer for the same purpose.
+
 Copyright & License
 ------------------------
 

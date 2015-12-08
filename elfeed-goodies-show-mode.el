@@ -14,7 +14,6 @@
 (require 'elfeed)
 (require 'elfeed-goodies)
 (require 'powerline)
-(require 'message)
 
 (defcustom elfeed-goodies/show-mode-padding 0
   "Padding on the side of the `*elfeed-entry*' buffer.

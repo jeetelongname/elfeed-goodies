@@ -35,10 +35,10 @@ When zero or negative, the fringes are left untouched."
                        (elfeed-feed-title feed)))
 
          (separator-left (intern (format "powerline-%s-%s"
-                                         elfeed-goodies-powerline-default-separator
+                                         elfeed-goodies/powerline-default-separator
                                          (car powerline-default-separator-dir))))
          (separator-right (intern (format "powerline-%s-%s"
-                                          elfeed-goodies-powerline-default-separator
+                                          elfeed-goodies/powerline-default-separator
                                           (cdr powerline-default-separator-dir))))
          (lhs (list
                (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)

@@ -34,7 +34,7 @@
   "Customisation group for `elfeed-goodies'."
   :group 'comm)
 
-(defcustom elfeed-goodies-powerline-default-separator 'arrow-fade
+(defcustom elfeed-goodies/powerline-default-separator 'arrow-fade
   "The separator to use for elfeed headers.
 
 Valid Values: alternate, arrow, arrow-fade, bar, box, brace,

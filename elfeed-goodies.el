@@ -34,12 +34,30 @@
   "Customisation group for `elfeed-goodies'."
   :group 'comm)
 
-(defcustom elfeed-goodies/powerline-separators t
-  "Toggle powerline separator use on or off within Elfeed buffers.
+(defcustom elfeed-goodies-powerline-default-separator 'arrow-fade
+  "The separator to use for elfeed headers.
 
-When disabled, powerline will still be in use, but without separators."
+Valid Values: alternate, arrow, arrow-fade, bar, box, brace,
+butt, chamfer, contour, curve, rounded, roundstub, wave, zigzag,
+utf-8."
   :group 'elfeed-goodies
-  :type 'boolean)
+  :type '(choice (const alternate)
+                 (const arrow)
+                 (const arrow-fade)
+                 (const bar)
+                 (const box)
+                 (const brace)
+                 (const butt)
+                 (const chamfer)
+                 (const contour)
+                 (const curve)
+                 (const rounded)
+                 (const roundstub)
+                 (const slant)
+                 (const wave)
+                 (const zigzag)
+                 (const utf-8)
+                 (const nil)))
 
 (defun maybe-separator (separator-func face-left face-right)
   (if elfeed-goodies/powerline-separators

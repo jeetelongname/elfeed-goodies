@@ -6,7 +6,7 @@
 ;; URL: https://github.com/algernon/elfeed-goodies
 ;;
 ;; This file is NOT part of GNU Emacs.
-                                        ;
+;;
 ;;; License: GPLv3+
 ;;
 ;;; Code:

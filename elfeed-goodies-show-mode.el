@@ -16,9 +16,7 @@
 (require 'powerline)
 
 (defcustom elfeed-goodies/show-mode-padding 0
-  "Padding on the side of the `*elfeed-entry*' buffer.
-
-When zero or negative, the fringes are left untouched."
+  "Padding on the side of the `*elfeed-entry*' buffer, in characters."
   :group 'elfeed-goodies
   :type 'integer)
 
@@ -72,9 +70,9 @@ When zero or negative, the fringes are left untouched."
     (goto-char (point-min))))
 
 (defun elfeed-goodies/show-mode-setup ()
-  (setq header-line-format '(:eval (elfeed-goodies/entry-header-line)))
-  (when (> elfeed-goodies/show-mode-padding 0)
-    (set-fringe-mode (cons elfeed-goodies/show-mode-padding elfeed-goodies/show-mode-padding))))
+  (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
+        left-margin-width elfeed-goodies/show-mode-padding
+        right-margin-width elfeed-goodies/show-mode-padding))
 
 (provide 'elfeed-goodies-show-mode)
 

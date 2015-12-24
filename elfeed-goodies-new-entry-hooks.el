@@ -13,23 +13,19 @@
 
 (require 'elfeed-goodies)
 (require 'cl-lib)
+(require 'mm-url)
 
 (defcustom elfeed-goodies/html-decode-title-tags '()
   "Decode HTML entities in the titles of entries tagged with any of these tags."
   :group 'elfeed-goodies
   :type '(repeat symbol))
 
-(defun decode-entities (html)
-  (with-temp-buffer
-    (save-excursion (insert html))
-    (xml-parse-string)))
-
 (defun elfeed-goodies/html-decode-title (entry)
   (let ((tags (elfeed-deref (elfeed-entry-tags entry))))
     (if (or (equal elfeed-goodies/html-decode-title-tags '(:all))
             (cl-intersection tags elfeed-goodies/html-decode-title-tags))
         (let* ((original (elfeed-deref (elfeed-entry-title entry)))
-               (replace (decode-entities original)))
+               (replace (mm-url-decode-entities-string original)))
           (setf (elfeed-entry-title entry) replace)))))
 
 (defun elfeed-goodies/parse-author (type entry db-entry)

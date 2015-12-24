@@ -26,7 +26,8 @@
 
 (defun elfeed-goodies/html-decode-title (entry)
   (let ((tags (elfeed-deref (elfeed-entry-tags entry))))
-    (if (cl-intersection tags elfeed-goodies/html-decode-title-tags)
+    (if (or (equal elfeed-goodies/html-decode-title-tags '(:all))
+            (cl-intersection tags elfeed-goodies/html-decode-title-tags))
         (let* ((original (elfeed-deref (elfeed-entry-title entry)))
                (replace (decode-entities original)))
           (setf (elfeed-entry-title entry) replace)))))

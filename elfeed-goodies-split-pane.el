@@ -24,6 +24,11 @@
   :group 'elfeed-goodies
   :type 'number)
 
+(defcustom elfeed-goodies/switch-to-entry t
+  "Whether to switch to the *elfeed-entry* buffer when using a split pane, or not."
+  :group 'elfeed-goodies
+  :type 'boolean)
+
 (defun elfeed-goodies/switch-pane (buff)
   "Display BUFF in a popup window."
   (popwin:popup-buffer buff
@@ -31,7 +36,8 @@
                        :width elfeed-goodies/entry-pane-size
                        :height elfeed-goodies/entry-pane-size
                        :stick t
-                       :dedicated t))
+                       :dedicated t
+                       :noselect (not elfeed-goodies/switch-to-entry)))
 
 (defun elfeed-goodies/delete-pane ()
   "Delete the *elfeed-entry* split pane."

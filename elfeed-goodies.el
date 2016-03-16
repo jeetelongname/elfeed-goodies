@@ -1,6 +1,6 @@
 ;;; elfeed-goodies.el --- Elfeed goodies
 ;;
-;; Copyright (c) 2015 Gergely Nagy
+;; Copyright (c) 2015, 2016 Gergely Nagy
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/algernon/elfeed-goodies
@@ -74,6 +74,8 @@ utf-8."
         elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane
         elfeed-show-entry-delete #'elfeed-goodies/delete-pane
-        elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain))
+        elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain)
+  (define-key elfeed-show-mode-map "n" #'elfeed-goodies/split-show-next)
+  (define-key elfeed-show-mode-map "p" #'elfeed-goodies/split-show-prev))
 
 ;;; elfeed-goodies.el ends here

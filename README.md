@@ -63,4 +63,4 @@ ones they may have problems with. Consider customising the following faces:
 Copyright & License
 ------------------------
 
-Copyright (c) 2015 Gergely Nagy, released under the terms of the GNU GPLv3+.
+Copyright (c) 2015, 2016 Gergely Nagy, released under the terms of the GNU GPLv3+.

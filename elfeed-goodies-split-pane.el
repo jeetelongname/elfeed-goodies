@@ -1,6 +1,6 @@
 ;;; elfeed-goodies-split-pane.el --- Elfeed goodies: split pane support
 ;;
-;; Copyright (c) 2015 Gergely Nagy
+;; Copyright (c) 2015, 2016 Gergely Nagy
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/algernon/elfeed-goodies
@@ -40,6 +40,30 @@
          (window (get-buffer-window buff)))
     (kill-buffer buff)
     (delete-window window)))
+
+(defun elfeed-goodies/split-search-show-entry (entry)
+  "Display the currently selected item in a buffer."
+  (interactive (list (elfeed-search-selected :ignore-region)))
+  (when (elfeed-entry-p entry)
+    (elfeed-untag entry 'unread)
+    (elfeed-search-update-entry entry)
+    (elfeed-show-entry entry)))
+
+(defun elfeed-goodies/split-show-next ()
+  "Show the next item in the elfeed-search buffer."
+  (interactive)
+  (funcall elfeed-show-entry-delete)
+  (with-current-buffer (elfeed-search-buffer)
+    (forward-line)
+    (call-interactively #'elfeed-goodies/split-search-show-entry)))
+
+(defun elfeed-goodies/split-show-prev ()
+  "Show the previous item in the elfeed-search buffer."
+  (interactive)
+  (funcall elfeed-show-entry-delete)
+  (with-current-buffer (elfeed-search-buffer)
+    (forward-line -1)
+    (call-interactively #'elfeed-goodiess/split-search-show-entry)))
 
 (provide 'elfeed-goodies-split-pane)
 

@@ -69,7 +69,7 @@
   (funcall elfeed-show-entry-delete)
   (with-current-buffer (elfeed-search-buffer)
     (forward-line -1)
-    (call-interactively #'elfeed-goodiess/split-search-show-entry)))
+    (call-interactively #'elfeed-goodies/split-search-show-entry)))
 
 (provide 'elfeed-goodies-split-pane)
 

@@ -91,7 +91,6 @@
                                         (nreverse candidates))))
     (setq ace-jump-mode-end-hook
           (list `(lambda ()
-                   (setq ace-jump-mode-end-hook)
                    (forward-char 1)
                    (shr-browse-url))))
     (ace-jump-do "foo")))

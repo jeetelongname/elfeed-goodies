@@ -55,10 +55,14 @@
     (elfeed-search-update-entry entry)
     (elfeed-show-entry entry)))
 
+(defun elfeed-entry-buffer ()
+  (get-buffer-create "*elfeed-entry*"))
+
 (defun elfeed-goodies/split-show-next ()
   "Show the next item in the elfeed-search buffer."
   (interactive)
-  (funcall elfeed-show-entry-delete)
+  (with-current-buffer (elfeed-entry-buffer)
+    (condition-case nil (funcall elfeed-show-entry-delete) (error nil)))
   (with-current-buffer (elfeed-search-buffer)
     (forward-line)
     (call-interactively #'elfeed-goodies/split-search-show-entry)))
@@ -66,7 +70,8 @@
 (defun elfeed-goodies/split-show-prev ()
   "Show the previous item in the elfeed-search buffer."
   (interactive)
-  (funcall elfeed-show-entry-delete)
+  (with-current-buffer (elfeed-entry-buffer)
+    (condition-case nil (funcall elfeed-show-entry-delete) (error nil)))
   (with-current-buffer (elfeed-search-buffer)
     (forward-line -1)
     (call-interactively #'elfeed-goodies/split-search-show-entry)))

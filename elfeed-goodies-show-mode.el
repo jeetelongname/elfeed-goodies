@@ -89,11 +89,11 @@
                            candidates)
                      (setq skip (text-property-any (point) (point-max)
                                                    'help-echo nil))))
-                 (nreverse candidates)))))
-    (setq ace-jump-mode-end-hook
-          (list `(lambda ()
-                   (forward-char 1)
-                   (shr-browse-url))))
+                 (nreverse candidates))))
+            (ace-jump-mode-end-hook
+             (list `(lambda ()
+                      (forward-char 1)
+                      (shr-browse-url)))))
     (ace-jump-do "foo")))
 
 (defun elfeed-goodies/show-mode-setup ()

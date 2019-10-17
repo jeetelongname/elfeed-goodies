@@ -14,8 +14,8 @@
 (require 'elfeed)
 (require 'elfeed-goodies)
 (require 'powerline)
-(require 'noflet)
 (require 'ace-jump-mode)
+(require 'cl-lib)
 
 (defcustom elfeed-goodies/show-mode-padding 0
   "Padding on the side of the `*elfeed-entry*' buffer, in characters."
@@ -74,21 +74,22 @@
 (defun elfeed-goodies/show-ace-link ()
   "Select a link to visit with ace-jump."
   (interactive)
-  (noflet ((ace-jump-search-candidate (str va-list)
-                                      (let ((skip (text-property-any (point-min) (point-max)
-                                                                     'help-echo nil))
-                                            candidates)
-                                        (save-excursion
-                                          (while (setq skip (text-property-not-all skip (point-max)
-                                                                                   'help-echo nil))
-                                            (goto-char skip)
-                                            (push (make-aj-position
-                                                   :offset (1- skip)
-                                                   :visual-area (car va-list))
-                                                  candidates)
-                                            (setq skip (text-property-any (point) (point-max)
-                                                                          'help-echo nil))))
-                                        (nreverse candidates))))
+  (cl-letf (((symbol-function 'ace-jump-search-candidate)
+             (lambda (str va-list)
+               (let ((skip (text-property-any (point-min) (point-max)
+                                              'help-echo nil))
+                     candidates)
+                 (save-excursion
+                   (while (setq skip (text-property-not-all skip (point-max)
+                                                            'help-echo nil))
+                     (goto-char skip)
+                     (push (make-aj-position
+                            :offset (1- skip)
+                            :visual-area (car va-list))
+                           candidates)
+                     (setq skip (text-property-any (point) (point-max)
+                                                   'help-echo nil))))
+                 (nreverse candidates)))))
     (setq ace-jump-mode-end-hook
           (list `(lambda ()
                    (forward-char 1)

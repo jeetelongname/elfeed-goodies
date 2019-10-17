@@ -13,7 +13,6 @@
 
 (require 'elfeed)
 (require 'elfeed-goodies)
-(require 'powerline)
 (require 'cl-lib)
 
 (defcustom elfeed-goodies/feed-source-column-width 16
@@ -61,68 +60,69 @@ and the length of the active queue."
         (length url-queue)
         (cl-count-if #'url-queue-buffer url-queue)))
 
-(defun search-header/rhs (separator-left separator-right search-filter stats update)
-  (list
-   (funcall separator-right 'mode-line 'powerline-active1)
-   (powerline-raw (concat " " search-filter) 'powerline-active1 'r)
-   (funcall separator-right 'powerline-active1 'powerline-active2)
-   (cl-destructuring-bind (unread entry-count feed-count) stats
-     (let ((content (format " %d/%d:%d " unread entry-count feed-count)))
-       (when url-queue
-         (cl-destructuring-bind (total-feeds queue-length in-progress) (-elfeed/queue-stats)
-           (setf content (concat content (format " (* %.0f%%%%)"
-                                                 (* (/ (- total-feeds (+ queue-length
-                                                                         in-progress))
-                                                       total-feeds 1.0) 100))))))
-       (propertize content
-                   'face 'powerline-active2)))
-   (funcall separator-right 'powerline-active2 'powerline-active1)
-   (powerline-raw (concat " " update) 'powerline-active1 'r)))
+(with-eval-after-load 'powerline
+  (defun search-header/rhs (separator-left separator-right search-filter stats update)
+    (list
+     (funcall separator-right 'mode-line 'powerline-active1)
+     (powerline-raw (concat " " search-filter) 'powerline-active1 'r)
+     (funcall separator-right 'powerline-active1 'powerline-active2)
+     (cl-destructuring-bind (unread entry-count feed-count) stats
+       (let ((content (format " %d/%d:%d " unread entry-count feed-count)))
+         (when url-queue
+           (cl-destructuring-bind (total-feeds queue-length in-progress) (-elfeed/queue-stats)
+             (setf content (concat content (format " (* %.0f%%%%)"
+                                                   (* (/ (- total-feeds (+ queue-length
+                                                                           in-progress))
+                                                         total-feeds 1.0) 100))))))
+         (propertize content
+                     'face 'powerline-active2)))
+     (funcall separator-right 'powerline-active2 'powerline-active1)
+     (powerline-raw (concat " " update) 'powerline-active1 'r)))
 
-(defun search-header/draw-wide (separator-left separator-right search-filter stats db-time)
-  (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
-         (lhs (list
-               (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
-               (funcall separator-left 'powerline-active1 'powerline-active2)
-               (powerline-raw (-pad-string-to "Tags" (- elfeed-goodies/tag-column-width 6)) 'powerline-active2 'l)
-               (funcall separator-left 'powerline-active2 'mode-line)
-               (powerline-raw "Subject" 'mode-line 'l)))
-         (rhs (search-header/rhs separator-left separator-right search-filter stats update)))
+  (defun search-header/draw-wide (separator-left separator-right search-filter stats db-time)
+    (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
+           (lhs (list
+                 (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
+                 (funcall separator-left 'powerline-active1 'powerline-active2)
+                 (powerline-raw (-pad-string-to "Tags" (- elfeed-goodies/tag-column-width 6)) 'powerline-active2 'l)
+                 (funcall separator-left 'powerline-active2 'mode-line)
+                 (powerline-raw "Subject" 'mode-line 'l)))
+           (rhs (search-header/rhs separator-left separator-right search-filter stats update)))
 
-    (concat (powerline-render lhs)
-            (powerline-fill 'mode-line (powerline-width rhs))
-            (powerline-render rhs))))
+      (concat (powerline-render lhs)
+              (powerline-fill 'mode-line (powerline-width rhs))
+              (powerline-render rhs))))
 
-(defun search-header/draw-tight (separator-left separator-right search-filter stats db-time)
-  (let* ((update (format-time-string "%H:%M:%S" db-time))
-         (lhs (list
-               (powerline-raw "Subject" 'mode-line 'l)))
-         (rhs (search-header/rhs separator-left separator-right search-filter stats update)))
-    (concat (powerline-render lhs)
-            (powerline-fill 'mode-line (powerline-width rhs))
-            (powerline-render rhs))))
+  (defun search-header/draw-tight (separator-left separator-right search-filter stats db-time)
+    (let* ((update (format-time-string "%H:%M:%S" db-time))
+           (lhs (list
+                 (powerline-raw "Subject" 'mode-line 'l)))
+           (rhs (search-header/rhs separator-left separator-right search-filter stats update)))
+      (concat (powerline-render lhs)
+              (powerline-fill 'mode-line (powerline-width rhs))
+              (powerline-render rhs))))
 
-(defun elfeed-goodies/search-header-draw ()
-  "Returns the string to be used as the Elfeed header."
-  (if (zerop (elfeed-db-last-update))
-      (elfeed-search--intro-header)
-    (let* ((separator-left (intern (format "powerline-%s-%s"
-                                           elfeed-goodies/powerline-default-separator
-                                           (car powerline-default-separator-dir))))
-           (separator-right (intern (format "powerline-%s-%s"
-                                            elfeed-goodies/powerline-default-separator
-                                            (cdr powerline-default-separator-dir))))
-           (db-time (seconds-to-time (elfeed-db-last-update)))
-           (stats (-elfeed/feed-stats))
-           (search-filter (cond
-                           (elfeed-search-filter-active
-                            "")
-                           (elfeed-search-filter
-                            elfeed-search-filter)
-                           (""))))
-      (if (>= (window-width) (* (frame-width) elfeed-goodies/wide-threshold))
-          (search-header/draw-wide separator-left separator-right search-filter stats db-time)
-        (search-header/draw-tight separator-left separator-right search-filter stats db-time)))))
+  (defun elfeed-goodies/search-header-draw ()
+    "Returns the string to be used as the Elfeed header."
+    (if (zerop (elfeed-db-last-update))
+        (elfeed-search--intro-header)
+      (let* ((separator-left (intern (format "powerline-%s-%s"
+                                             elfeed-goodies/powerline-default-separator
+                                             (car powerline-default-separator-dir))))
+             (separator-right (intern (format "powerline-%s-%s"
+                                              elfeed-goodies/powerline-default-separator
+                                              (cdr powerline-default-separator-dir))))
+             (db-time (seconds-to-time (elfeed-db-last-update)))
+             (stats (-elfeed/feed-stats))
+             (search-filter (cond
+                             (elfeed-search-filter-active
+                              "")
+                             (elfeed-search-filter
+                              elfeed-search-filter)
+                             (""))))
+        (if (>= (window-width) (* (frame-width) elfeed-goodies/wide-threshold))
+            (search-header/draw-wide separator-left separator-right search-filter stats db-time)
+          (search-header/draw-tight separator-left separator-right search-filter stats db-time))))))
 
 (defun elfeed-goodies/entry-line-draw (entry)
   "Print ENTRY to the buffer."

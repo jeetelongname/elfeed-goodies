@@ -13,7 +13,6 @@
 
 (require 'elfeed)
 (require 'elfeed-goodies)
-(require 'powerline)
 (require 'ace-jump-mode)
 (require 'cl-lib)
 
@@ -22,38 +21,39 @@
   :group 'elfeed-goodies
   :type 'integer)
 
-(defun elfeed-goodies/entry-header-line ()
-  (let* ((title (elfeed-entry-title elfeed-show-entry))
-         (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
-         (tags (elfeed-entry-tags elfeed-show-entry))
-         (tags-str (mapconcat #'symbol-name tags ", "))
-         (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
-         (feed (elfeed-entry-feed elfeed-show-entry))
-         (entry-author (elfeed-meta elfeed-show-entry :author))
-         (feed-title (if entry-author
-                         (concat entry-author " (" (elfeed-feed-title feed) ")")
-                       (elfeed-feed-title feed)))
+(with-eval-after-load 'powerline
+  (defun elfeed-goodies/entry-header-line ()
+    (let* ((title (elfeed-entry-title elfeed-show-entry))
+           (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
+           (tags (elfeed-entry-tags elfeed-show-entry))
+           (tags-str (mapconcat #'symbol-name tags ", "))
+           (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
+           (feed (elfeed-entry-feed elfeed-show-entry))
+           (entry-author (elfeed-meta elfeed-show-entry :author))
+           (feed-title (if entry-author
+                           (concat entry-author " (" (elfeed-feed-title feed) ")")
+                         (elfeed-feed-title feed)))
 
-         (separator-left (intern (format "powerline-%s-%s"
-                                         elfeed-goodies/powerline-default-separator
-                                         (car powerline-default-separator-dir))))
-         (separator-right (intern (format "powerline-%s-%s"
-                                          elfeed-goodies/powerline-default-separator
-                                          (cdr powerline-default-separator-dir))))
-         (lhs (list
-               (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)
-               (funcall separator-left 'powerline-active2 'powerline-active1)
-               (powerline-raw (concat " " (propertize title 'face title-faces) " ") 'powerline-active1 'l)
-               (funcall separator-left 'powerline-active1 'mode-line)))
-         (rhs (list
-               (funcall separator-right 'mode-line 'powerline-active1)
-               (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-search-feed-face) " ") 'powerline-active1)
-               (funcall separator-right 'powerline-active1 'powerline-active2)
-               (powerline-raw (format-time-string "%Y-%m-%d %H:%M:%S %z " date) 'powerline-active2 'l))))
-    (concat
-     (powerline-render lhs)
-     (powerline-fill 'mode-line (powerline-width rhs))
-     (powerline-render rhs))))
+           (separator-left (intern (format "powerline-%s-%s"
+                                           elfeed-goodies/powerline-default-separator
+                                           (car powerline-default-separator-dir))))
+           (separator-right (intern (format "powerline-%s-%s"
+                                            elfeed-goodies/powerline-default-separator
+                                            (cdr powerline-default-separator-dir))))
+           (lhs (list
+                 (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)
+                 (funcall separator-left 'powerline-active2 'powerline-active1)
+                 (powerline-raw (concat " " (propertize title 'face title-faces) " ") 'powerline-active1 'l)
+                 (funcall separator-left 'powerline-active1 'mode-line)))
+           (rhs (list
+                 (funcall separator-right 'mode-line 'powerline-active1)
+                 (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-search-feed-face) " ") 'powerline-active1)
+                 (funcall separator-right 'powerline-active1 'powerline-active2)
+                 (powerline-raw (format-time-string "%Y-%m-%d %H:%M:%S %z " date) 'powerline-active2 'l))))
+      (concat
+       (powerline-render lhs)
+       (powerline-fill 'mode-line (powerline-width rhs))
+       (powerline-render rhs)))))
 
 (defun elfeed-goodies/show-refresh--plain ()
   (interactive)
@@ -97,8 +97,9 @@
     (ace-jump-do "foo")))
 
 (defun elfeed-goodies/show-mode-setup ()
-  (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
-        left-margin-width elfeed-goodies/show-mode-padding
+  (when (featurep 'powerline)
+    (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))))
+  (setq left-margin-width elfeed-goodies/show-mode-padding
         right-margin-width elfeed-goodies/show-mode-padding)
   (define-key elfeed-show-mode-map (kbd "M-v") #'elfeed-goodies/show-ace-link))
 

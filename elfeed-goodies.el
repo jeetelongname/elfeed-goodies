@@ -4,7 +4,7 @@
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/algernon/elfeed-goodies
-;; Package-Requires: ((popwin "1.0.0") (powerline "2.2") (elfeed "2.0.0") (cl-lib "0.5") (noflet "0.0.10") (ace-jump-mode "2.0"))
+;; Package-Requires: ((popwin "1.0.0") (elfeed "2.0.0") (cl-lib "0.5") (ace-jump-mode "2.0"))
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;
@@ -63,15 +63,16 @@ utf-8."
   "Setup Elfeed with extras:
 
 * Adaptive header bar and entries.
-* Header bar using powerline.
+* Header bar using powerline (if loaded).
 * Split pane view via popwin."
   (interactive)
   (add-hook 'elfeed-show-mode-hook #'elfeed-goodies/show-mode-setup)
   (add-hook 'elfeed-new-entry-hook #'elfeed-goodies/html-decode-title)
   (when (boundp 'elfeed-new-entry-parse-hook)
     (add-hook 'elfeed-new-entry-parse-hook #'elfeed-goodies/parse-author))
-  (setq elfeed-search-header-function #'elfeed-goodies/search-header-draw
-        elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
+  (when (featurep 'powerline)
+    (setq elfeed-search-header-function 'elfeed-goodies/search-header-draw))
+  (setq elfeed-search-print-entry-function #'elfeed-goodies/entry-line-draw
         elfeed-show-entry-switch #'elfeed-goodies/switch-pane
         elfeed-show-entry-delete #'elfeed-goodies/delete-pane
         elfeed-show-refresh-function #'elfeed-goodies/show-refresh--plain)

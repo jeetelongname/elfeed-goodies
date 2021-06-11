@@ -14,7 +14,6 @@
 (require 'elfeed)
 (require 'elfeed-goodies)
 (require 'powerline)
-(require 'noflet)
 
 (defcustom elfeed-goodies/show-mode-padding 0
   "Padding on the side of the `*elfeed-entry*' buffer, in characters."

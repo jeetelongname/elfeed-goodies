@@ -4,7 +4,7 @@
 ;;
 ;; Author: Gergely Nagy
 ;; URL: https://github.com/algernon/elfeed-goodies
-;; Package-Requires: ((popwin "1.0.0") (powerline "2.2") (elfeed "2.0.0") (cl-lib "0.5") (noflet "0.0.10"))
+;; Package-Requires: ((popwin "1.0.0") (powerline "2.2") (elfeed "2.0.0") (cl-lib "0.5"))
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

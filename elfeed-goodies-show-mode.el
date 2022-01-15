@@ -8,6 +8,8 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
+;;; Commentary:
+;; This file contains all code pertaining to the show mode
 ;;
 ;;; Code:
 
@@ -97,6 +99,7 @@
     (ace-jump-do "foo")))
 
 (defun elfeed-goodies/show-mode-setup ()
+  "Setup show mode with sensible defaults."
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
         left-margin-width elfeed-goodies/show-mode-padding
         right-margin-width elfeed-goodies/show-mode-padding)

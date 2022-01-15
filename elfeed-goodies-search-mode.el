@@ -8,7 +8,9 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
-;;
+;;; Commentary:
+;; TODO: contains code for search mode
+;; 
 ;;; Code:
 
 (require 'elfeed)

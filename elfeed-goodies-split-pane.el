@@ -6,8 +6,10 @@
 ;; URL: https://github.com/algernon/elfeed-goodies
 ;;
 ;; This file is NOT part of GNU Emacs.
-;;
+;; 
 ;;; License: GPLv3+
+;;; Commentary:
+;; TODO: Contains code for split panes.
 ;;
 ;;; Code:
 

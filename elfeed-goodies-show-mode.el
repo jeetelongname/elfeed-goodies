@@ -25,6 +25,8 @@
   :type 'integer)
 
 (defun elfeed-goodies/entry-header-line ()
+  "Generate elfeed goodies header line.
+Returns a string containing powerline symbols"
   (let* ((title (elfeed-entry-title elfeed-show-entry))
          (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
          (tags (elfeed-entry-tags elfeed-show-entry))
@@ -58,6 +60,8 @@
      (powerline-render rhs))))
 
 (defun elfeed-goodies/show-refresh--plain ()
+  "Insert Content into Entry show buffer.
+Show empty if there is no content."
   (interactive)
   (let* ((inhibit-read-only t)
          (content (elfeed-deref (elfeed-entry-content elfeed-show-entry)))
@@ -81,6 +85,7 @@
 (define-obsolete-function-alias 'elfeed-goodies/show-ace-link 'elfeed-goodies/show-link-hint "7f0ef62")
 
 (defun elfeed-goodies/show-mode-setup ()
+  "Setup function providing defaults for show mode buffer."
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
         left-margin-width elfeed-goodies/show-mode-padding
         right-margin-width elfeed-goodies/show-mode-padding)

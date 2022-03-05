@@ -72,31 +72,6 @@
       (insert (propertize "(empty)\n" 'face 'italic)))
     (goto-char (point-min))))
 
-(defun elfeed-goodies/show-ace-link ()
-  "Select a link to visit with ace-jump."
-  (interactive)
-  (cl-letf (((symbol-function 'ace-jump-search-candidate)
-             (lambda  (str va-list)
-               (let ((skip (text-property-any (point-min) (point-max)
-                                              'help-echo nil))
-                     candidates)
-                 (save-excursion
-                   (while (setq skip (text-property-not-all skip (point-max)
-                                                            'help-echo nil))
-                     (goto-char skip)
-                     (push (make-aj-position
-                            :offset (1- skip)
-                            :visual-area (car va-list))
-                           candidates)
-                     (setq skip (text-property-any (point) (point-max)
-                                                   'help-echo nil))))
-                 (nreverse candidates)))))
-    (setq ace-jump-mode-end-hook
-          (list `(lambda ()
-                   (forward-char 1)
-                   (shr-browse-url))))
-    (ace-jump-do "foo")))
-
 (defun elfeed-goodies/show-link-hint ()
   "Select a link to visit with link-hint."
   (interactive)
@@ -106,7 +81,7 @@
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
         left-margin-width elfeed-goodies/show-mode-padding
         right-margin-width elfeed-goodies/show-mode-padding)
-  (define-key elfeed-show-mode-map (kbd "M-v") #'elfeed-goodies/show-ace-link))
+  (define-key elfeed-show-mode-map (kbd "M-v") #'elfeed-goodies/show-link-hint))
 
 (provide 'elfeed-goodies-show-mode)
 

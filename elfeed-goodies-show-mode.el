@@ -16,6 +16,7 @@
 (require 'powerline)
 (require 'cl-lib)
 (require 'ace-jump-mode)
+(require 'link-hint)
 
 (defcustom elfeed-goodies/show-mode-padding 0
   "Padding on the side of the `*elfeed-entry*' buffer, in characters."
@@ -95,6 +96,11 @@
                    (forward-char 1)
                    (shr-browse-url))))
     (ace-jump-do "foo")))
+
+(defun elfeed-goodies/show-link-hint ()
+  "Select a link to visit with link-hint."
+  (interactive)
+  (link-hint-open-link))
 
 (defun elfeed-goodies/show-mode-setup ()
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))

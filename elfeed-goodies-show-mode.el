@@ -15,7 +15,6 @@
 (require 'elfeed-goodies)
 (require 'powerline)
 (require 'cl-lib)
-(require 'ace-jump-mode)
 (require 'link-hint)
 
 (defcustom elfeed-goodies/show-mode-padding 0

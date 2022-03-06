@@ -76,6 +76,8 @@
   (interactive)
   (link-hint-open-link))
 
+(define-obsolete-function-alias 'elfeed-goodies/show-ace-link 'elfeed-goodies/show-link-hint "7f0ef62")
+
 (defun elfeed-goodies/show-mode-setup ()
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
         left-margin-width elfeed-goodies/show-mode-padding

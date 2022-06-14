@@ -50,7 +50,8 @@
     (delete-window window)))
 
 (defun elfeed-goodies/split-search-show-entry (entry)
-  "Display the currently selected item in a buffer."
+  "Display the currently selected item in a buffer.
+Takes ENTRY and opens in own buffer."
   (interactive (list (elfeed-search-selected :ignore-region)))
   (when (elfeed-entry-p entry)
     (elfeed-untag entry 'unread)
@@ -58,6 +59,7 @@
     (elfeed-show-entry entry)))
 
 (defun elfeed-entry-buffer ()
+  "Create and return buffer called `*elfeed-entry*'."
   (get-buffer-create "*elfeed-entry*"))
 
 (defun elfeed-goodies/split-show-next ()

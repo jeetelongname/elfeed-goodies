@@ -8,7 +8,11 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
-;;
+;;; Commentary:
+;; Contains functions to configure elfeed-search-mode.
+;; - Adds more configured header line to the buffer.
+;; - Adds function to add entries to buffer.
+;; 
 ;;; Code:
 
 (require 'elfeed)
@@ -62,6 +66,11 @@ and the length of the active queue."
         (cl-count-if #'url-queue-buffer url-queue)))
 
 (defun search-header/rhs (separator-left separator-right search-filter stats update)
+  "Return a propertized string for the right hand side of the header-line.
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+SEARCH-FILTER as a string
+STATS as a list
+UPDATE as a formatted time string."
   (list
    (funcall separator-right 'mode-line 'powerline-active1)
    (powerline-raw (concat " " search-filter) 'powerline-active1 'r)
@@ -80,6 +89,11 @@ and the length of the active queue."
    (powerline-raw (concat " " update) 'powerline-active1 'r)))
 
 (defun search-header/draw-wide (separator-left separator-right search-filter stats db-time)
+  "Draw header-line when window is more than `elfeed-goodies/wide-threshold'.
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+SEARCH-FILTER as a string
+STATS as a list
+DB-TIME as a Lisp timestamp."
   (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
          (lhs (list
                (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
@@ -94,6 +108,11 @@ and the length of the active queue."
             (powerline-render rhs))))
 
 (defun search-header/draw-tight (separator-left separator-right search-filter stats db-time)
+  "Draw header-line when window is less than `elfeed-goodies/wide-threshold'.
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+SEARCH-FILTER as a string
+STATS as a list
+DB-TIME as a Lisp timestamp."
   (let* ((update (format-time-string "%H:%M:%S" db-time))
          (lhs (list
                (powerline-raw "Subject" 'mode-line 'l)))
@@ -103,7 +122,7 @@ and the length of the active queue."
             (powerline-render rhs))))
 
 (defun elfeed-goodies/search-header-draw ()
-  "Returns the string to be used as the Elfeed header."
+  "Return the string to be used as the Elfeed Search header."
   (if (zerop (elfeed-db-last-update))
       (elfeed-search--intro-header)
     (let* ((separator-left (intern (format "powerline-%s-%s"
@@ -126,7 +145,6 @@ and the length of the active queue."
 
 (defun elfeed-goodies/entry-line-draw (entry)
   "Print ENTRY to the buffer."
-
   (let* ((title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
          (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
          (feed (elfeed-entry-feed entry))

@@ -6,8 +6,10 @@
 ;; URL: https://github.com/algernon/elfeed-goodies
 ;;
 ;; This file is NOT part of GNU Emacs.
-;;
+;; 
 ;;; License: GPLv3+
+;;; Commentary:
+;; Contains manipulation functions to correctly create, delete and navigate entries.
 ;;
 ;;; Code:
 
@@ -20,7 +22,8 @@
   :type '(choice (const left) (const right) (const top) (const bottom)))
 
 (defcustom elfeed-goodies/entry-pane-size 0.75
-  "Size (width or height, depending on position) of the popup entry pane."
+  "Size (width or height, depending on position) of the popup entry pane.
+Taken as a decimal scale factor."
   :group 'elfeed-goodies
   :type 'number)
 
@@ -48,7 +51,8 @@
     (delete-window window)))
 
 (defun elfeed-goodies/split-search-show-entry (entry)
-  "Display the currently selected item in a buffer."
+  "Display the currently selected item in a buffer.
+Take ENTRY and opens in own buffer."
   (interactive (list (elfeed-search-selected :ignore-region)))
   (when (elfeed-entry-p entry)
     (elfeed-untag entry 'unread)
@@ -56,6 +60,7 @@
     (elfeed-show-entry entry)))
 
 (defun elfeed-entry-buffer ()
+  "Create and return buffer called `*elfeed-entry*'."
   (get-buffer-create "*elfeed-entry*"))
 
 (defun elfeed-goodies/split-show-next ()

@@ -8,7 +8,9 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
-
+;;; Commentary:
+;; Contains functions that will be added too `elfeed-new-entry-hook' on setup.
+;;
 ;;; Code:
 
 (require 'elfeed-goodies)
@@ -21,6 +23,7 @@
   :type '(repeat symbol))
 
 (defun elfeed-goodies/html-decode-title (entry)
+  "Take ENTRY decode title, and set ENTRY title to decoded version."
   (let ((tags (elfeed-deref (elfeed-entry-tags entry))))
     (if (or (equal elfeed-goodies/html-decode-title-tags '(:all))
             (cl-intersection tags elfeed-goodies/html-decode-title-tags))
@@ -28,7 +31,8 @@
                (replace (mm-url-decode-entities-string original)))
           (setf (elfeed-entry-title entry) replace)))))
 
-(defun elfeed-goodies/parse-author (type entry db-entry)
+(defun elfeed-goodies/parse-author (_type entry db-entry)
+  "Take TYPE (ignored), ENTRY, DB-ENTRY, extract and replace author in DB-ENTRY."
   (let* ((author-name (xml-query '(author name *) entry)))
     (setf (elfeed-meta db-entry :author) author-name)))
 

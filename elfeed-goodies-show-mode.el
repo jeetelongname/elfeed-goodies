@@ -8,6 +8,11 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
+;;; Commentary:
+;; Contains code for improved elfeed show mode.
+;; - How to draw its header lines.
+;; - Link hint functions to jump to links in entry.
+;; - Setup function for the buffer.
 ;;
 ;;; Code:
 
@@ -23,6 +28,8 @@
   :type 'integer)
 
 (defun elfeed-goodies/entry-header-line ()
+  "Generate elfeed goodies header line.
+Return a string containing powerline symbols"
   (let* ((title (elfeed-entry-title elfeed-show-entry))
          (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
          (tags (elfeed-entry-tags elfeed-show-entry))
@@ -56,6 +63,8 @@
      (powerline-render rhs))))
 
 (defun elfeed-goodies/show-refresh--plain ()
+  "Insert Content into Entry show buffer.
+Show (empty) if there is no content."
   (interactive)
   (let* ((inhibit-read-only t)
          (content (elfeed-deref (elfeed-entry-content elfeed-show-entry)))
@@ -72,13 +81,15 @@
     (goto-char (point-min))))
 
 (defun elfeed-goodies/show-link-hint ()
-  "Select a link to visit with link-hint."
+  "Select a link to visit with link-hint.
+Wrapper around link-hint-open-link."
   (interactive)
   (link-hint-open-link))
 
 (define-obsolete-function-alias 'elfeed-goodies/show-ace-link 'elfeed-goodies/show-link-hint "7f0ef62")
 
 (defun elfeed-goodies/show-mode-setup ()
+  "Setup function providing defaults for show mode buffer."
   (setq header-line-format '(:eval (elfeed-goodies/entry-header-line))
         left-margin-width elfeed-goodies/show-mode-padding
         right-margin-width elfeed-goodies/show-mode-padding)

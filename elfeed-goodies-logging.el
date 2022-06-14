@@ -8,7 +8,10 @@
 ;; This file is NOT part of GNU Emacs.
 ;;
 ;;; License: GPLv3+
-
+;;; Commentary:
+;; Contains configuration for the elfeed-log buffer surrouding size and position.
+;; As well as toggle funcion to show and hide window.
+;; 
 ;;; Code:
 
 (require 'elfeed-goodies)

@@ -9,7 +9,8 @@
 ;;
 ;;; License: GPLv3+
 ;;; Commentary:
-;; TODO: contains code for logging
+;; Contains configuration for the elfeed-log buffer surrouding size and position.
+;; As well as toggle funcion to show and hide window.
 ;; 
 ;;; Code:
 

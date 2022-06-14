@@ -9,7 +9,9 @@
 ;;
 ;;; License: GPLv3+
 ;;; Commentary:
-;; TODO: contains code for search mode
+;; Contains functions to configure elfeed-search-mode.
+;; - Adds more configured header line to the buffer.
+;; - Adds function to add entries to buffer.
 ;; 
 ;;; Code:
 
@@ -65,7 +67,7 @@ and the length of the active queue."
 
 (defun search-header/rhs (separator-left separator-right search-filter stats update)
   "Return a propertized string for the right hand side of the header-line.
-takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
 SEARCH-FILTER as a string
 STATS as a list
 UPDATE as a formatted time string."
@@ -88,10 +90,10 @@ UPDATE as a formatted time string."
 
 (defun search-header/draw-wide (separator-left separator-right search-filter stats db-time)
   "Draw header-line when window is more than `elfeed-goodies/wide-threshold'.
-takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
 SEARCH-FILTER as a string
 STATS as a list
-DB-TIME as a time object."
+DB-TIME as a Lisp timestamp."
   (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
          (lhs (list
                (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
@@ -107,10 +109,10 @@ DB-TIME as a time object."
 
 (defun search-header/draw-tight (separator-left separator-right search-filter stats db-time)
   "Draw header-line when window is less than `elfeed-goodies/wide-threshold'.
-takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
+Takes SEPARATOR-LEFT and SEPARATOR-RIGHT as functions from powerline
 SEARCH-FILTER as a string
 STATS as a list
-DB-TIME as a time object."
+DB-TIME as a Lisp timestamp."
   (let* ((update (format-time-string "%H:%M:%S" db-time))
          (lhs (list
                (powerline-raw "Subject" 'mode-line 'l)))

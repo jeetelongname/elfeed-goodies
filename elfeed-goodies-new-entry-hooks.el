@@ -9,8 +9,8 @@
 ;;
 ;;; License: GPLv3+
 ;;; Commentary:
-;; TODO: contains code for new entry hooks
-;; 
+;; Contains functions that will be added too `elfeed-new-entry-hook' on setup.
+;;
 ;;; Code:
 
 (require 'elfeed-goodies)

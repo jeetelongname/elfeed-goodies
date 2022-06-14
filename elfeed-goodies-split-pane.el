@@ -9,7 +9,7 @@
 ;; 
 ;;; License: GPLv3+
 ;;; Commentary:
-;; TODO: Contains code for split panes.
+;; Contains manipulation functions to correctly create, delete and navigate entries.
 ;;
 ;;; Code:
 
@@ -22,7 +22,8 @@
   :type '(choice (const left) (const right) (const top) (const bottom)))
 
 (defcustom elfeed-goodies/entry-pane-size 0.75
-  "Size (width or height, depending on position) of the popup entry pane."
+  "Size (width or height, depending on position) of the popup entry pane.
+Taken as a decimal scale factor."
   :group 'elfeed-goodies
   :type 'number)
 
@@ -51,7 +52,7 @@
 
 (defun elfeed-goodies/split-search-show-entry (entry)
   "Display the currently selected item in a buffer.
-Takes ENTRY and opens in own buffer."
+Take ENTRY and opens in own buffer."
   (interactive (list (elfeed-search-selected :ignore-region)))
   (when (elfeed-entry-p entry)
     (elfeed-untag entry 'unread)

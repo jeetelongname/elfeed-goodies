@@ -9,7 +9,10 @@
 ;;
 ;;; License: GPLv3+
 ;;; Commentary:
-;; TODO: Contains code for improved elfeed show mode
+;; Contains code for improved elfeed show mode.
+;; - How to draw its header lines.
+;; - Link hint functions to jump to links in entry.
+;; - Setup function for the buffer.
 ;;
 ;;; Code:
 
@@ -26,7 +29,7 @@
 
 (defun elfeed-goodies/entry-header-line ()
   "Generate elfeed goodies header line.
-Returns a string containing powerline symbols"
+Return a string containing powerline symbols"
   (let* ((title (elfeed-entry-title elfeed-show-entry))
          (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
          (tags (elfeed-entry-tags elfeed-show-entry))
@@ -61,7 +64,7 @@ Returns a string containing powerline symbols"
 
 (defun elfeed-goodies/show-refresh--plain ()
   "Insert Content into Entry show buffer.
-Show empty if there is no content."
+Show (empty) if there is no content."
   (interactive)
   (let* ((inhibit-read-only t)
          (content (elfeed-deref (elfeed-entry-content elfeed-show-entry)))
@@ -78,7 +81,8 @@ Show empty if there is no content."
     (goto-char (point-min))))
 
 (defun elfeed-goodies/show-link-hint ()
-  "Select a link to visit with link-hint."
+  "Select a link to visit with link-hint.
+Wrapper around link-hint-open-link."
   (interactive)
   (link-hint-open-link))
 

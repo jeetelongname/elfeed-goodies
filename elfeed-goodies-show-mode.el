@@ -30,17 +30,17 @@
 (defgroup elfeed-goodies-faces nil "Faces for Elfeed goodies." :group 'faces)
 
 (defface elfeed-goodies-show-header-feed
-  :inherit 'elfeed-search-feed-face
+  '((t :inherit 'elfeed-search-feed-face))
   "Elfeed goodies face for feed name in header of entry."
   :group 'elfeed-goodies-faces)
 
 (defface elfeed-goodies-show-header-title
-  :inherit 'elfeed-search-feed-face
+  '((t :inherit 'elfeed-search-title-face))
   "Elfeed goodies face for title in header of entry."
   :group 'elfeed-goodies-faces)
 
 (defface elfeed-goodies-show-header-tag
-  :inherit 'elfeed-search-feed-face
+  '((t :inherit 'elfeed-search-tag-face))
   "Elfeed goodies face for tags in header of entry."
   :group 'elfeed-goodies-faces)
 

@@ -27,11 +27,25 @@
   :group 'elfeed-goodies
   :type 'integer)
 
+(defface elfeed-goodies-show-header-feed
+  '((t :inherit 'elfeed-search-feed-face))
+  "Elfeed goodies face for feed name in header of entry."
+  :group 'elfeed-goodies)
+
+(defface elfeed-goodies-show-header-title
+  '((t :inherit 'elfeed-search-title-face))
+  "Elfeed goodies face for title in header of entry."
+  :group 'elfeed-goodies)
+
+(defface elfeed-goodies-show-header-tag
+  '((t :inherit 'elfeed-search-tag-face))
+  "Elfeed goodies face for tags in header of entry."
+  :group 'elfeed-goodies)
+
 (defun elfeed-goodies/entry-header-line ()
   "Generate elfeed goodies header line.
 Return a string containing powerline symbols"
   (let* ((title (elfeed-entry-title elfeed-show-entry))
-         (title-faces (elfeed-search--faces (elfeed-entry-tags elfeed-show-entry)))
          (tags (elfeed-entry-tags elfeed-show-entry))
          (tags-str (mapconcat #'symbol-name tags ", "))
          (date (seconds-to-time (elfeed-entry-date elfeed-show-entry)))
@@ -48,13 +62,13 @@ Return a string containing powerline symbols"
                                           elfeed-goodies/powerline-default-separator
                                           (cdr powerline-default-separator-dir))))
          (lhs (list
-               (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-search-tag-face) " ") 'powerline-active2 'r)
+               (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-goodies-show-header-tag-face) " ") 'powerline-active2 'r)
                (funcall separator-left 'powerline-active2 'powerline-active1)
-               (powerline-raw (concat " " (propertize title 'face title-faces) " ") 'powerline-active1 'l)
+               (powerline-raw (concat " " (propertize title 'face 'elfeed-goodies-show-header-title-face) " ") 'powerline-active1 'l)
                (funcall separator-left 'powerline-active1 'mode-line)))
          (rhs (list
                (funcall separator-right 'mode-line 'powerline-active1)
-               (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-search-feed-face) " ") 'powerline-active1)
+               (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-goodies-show-header-feed-face) " ") 'powerline-active1)
                (funcall separator-right 'powerline-active1 'powerline-active2)
                (powerline-raw (format-time-string "%Y-%m-%d %H:%M:%S %z " date) 'powerline-active2 'l))))
     (concat

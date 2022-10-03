@@ -62,13 +62,13 @@ Return a string containing powerline symbols"
                                           elfeed-goodies/powerline-default-separator
                                           (cdr powerline-default-separator-dir))))
          (lhs (list
-               (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-goodies-show-header-tag-face) " ") 'powerline-active2 'r)
+               (powerline-raw (concat " " (propertize tags-str 'face 'elfeed-goodies-show-header-tag) " ") 'powerline-active2 'r)
                (funcall separator-left 'powerline-active2 'powerline-active1)
-               (powerline-raw (concat " " (propertize title 'face 'elfeed-goodies-show-header-title-face) " ") 'powerline-active1 'l)
+               (powerline-raw (concat " " (propertize title 'face 'elfeed-goodies-show-header-title) " ") 'powerline-active1 'l)
                (funcall separator-left 'powerline-active1 'mode-line)))
          (rhs (list
                (funcall separator-right 'mode-line 'powerline-active1)
-               (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-goodies-show-header-feed-face) " ") 'powerline-active1)
+               (powerline-raw (concat " " (propertize feed-title 'face 'elfeed-goodies-show-header-feed) " ") 'powerline-active1)
                (funcall separator-right 'powerline-active1 'powerline-active2)
                (powerline-raw (format-time-string "%Y-%m-%d %H:%M:%S %z " date) 'powerline-active2 'l))))
     (concat

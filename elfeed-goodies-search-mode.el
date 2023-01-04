@@ -96,6 +96,8 @@ STATS as a list
 DB-TIME as a Lisp timestamp."
   (let* ((update (format-time-string "%Y-%m-%d %H:%M:%S %z" db-time))
          (lhs (list
+               (powerline-raw (-pad-string-to "Published" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
+               (funcall separator-left 'powerline-active1 'powerline-active2)
                (powerline-raw (-pad-string-to "Feed" (- elfeed-goodies/feed-source-column-width 4)) 'powerline-active1 'l)
                (funcall separator-left 'powerline-active1 'powerline-active2)
                (powerline-raw (-pad-string-to "Tags" (- elfeed-goodies/tag-column-width 6)) 'powerline-active2 'l)
@@ -146,6 +148,7 @@ DB-TIME as a Lisp timestamp."
 (defun elfeed-goodies/entry-line-draw (entry)
   "Print ENTRY to the buffer."
   (let* ((title (or (elfeed-meta entry :title) (elfeed-entry-title entry) ""))
+         (date (elfeed-search-format-date (elfeed-entry-date entry)))
          (title-faces (elfeed-search--faces (elfeed-entry-tags entry)))
          (feed (elfeed-entry-feed entry))
          (feed-title
@@ -174,6 +177,7 @@ DB-TIME as a Lisp timestamp."
 
     (if (>= (window-width) (* (frame-width) elfeed-goodies/wide-threshold))
         (progn
+          (insert (propertize date 'face 'elfeed-search-date-face) " ")
           (insert (propertize feed-column 'face 'elfeed-search-feed-face) " ")
           (insert (propertize tag-column 'face 'elfeed-search-tag-face) " ")
           (insert (propertize title 'face title-faces 'kbd-help title)))
